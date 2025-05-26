@@ -14,7 +14,7 @@ export default function ApiTestPage() {
       const data = await res.json();
       setGetResponse(data.received);
     } catch (error) {
-      setGetResponse("⚠️ 요청 실패");
+      setGetResponse("요청 실패");
       console.error(error);
     }
   };
@@ -29,7 +29,7 @@ export default function ApiTestPage() {
       const data = await res.json();
       setPostResponse(data.received);
     } catch (error) {
-      setPostResponse("⚠️ 요청 실패");
+      setPostResponse("요청 실패");
       console.error(error);
     }
   };

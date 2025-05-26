@@ -12,7 +12,9 @@
     "@prisma/client": "^6.8.2",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-react": "^5.22.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

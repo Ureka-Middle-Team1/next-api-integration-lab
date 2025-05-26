@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import TossPayment from "../components/TossPayment";
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -29,6 +30,10 @@ export default function Home() {
         <strong>GPT 응답:</strong>
         <p>{reply}</p>
       </div>
+
+      <hr style={{ margin: "40px 0" }} />
+
+      <TossPayment />
     </main>
   );
 }

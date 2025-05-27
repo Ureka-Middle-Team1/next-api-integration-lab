@@ -1,12 +1,16 @@
-import swaggerJSDoc from "swagger-jsdoc";
+import { createSwaggerSpec } from "next-swagger-doc";
 
-export const swaggerSpec = swaggerJSDoc({
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Next.js API Docs",
-      version: "1.0.0",
+export async function getApiDocs(): Promise<Record<string, unknown>> {
+  const spec = createSwaggerSpec({
+    apiFolder: "src/app/api",
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "API 문서",
+        version: "1.0.0",
+        description: "Next.js + Swagger UI 통합 예제",
+      },
     },
-  },
-  apis: ["src/app/api/**/*.ts"],
-});
+  }) as Record<string, unknown>;
+  return spec;
+}

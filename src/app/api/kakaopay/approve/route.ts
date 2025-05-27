@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
       },
       {
         headers: {
-          Authorization: `SECRET_KEY ${process.env.KAKAO_SECRET_KEY}`,
+          Authorization: `SECRET_KEY ${process.env.KAKAOPAY_SECRET_KEY}`,
           'Content-Type': 'application/json',
         },
       }

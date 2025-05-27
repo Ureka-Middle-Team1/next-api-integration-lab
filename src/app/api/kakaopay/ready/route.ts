@@ -9,20 +9,20 @@ export async function POST(req: NextRequest) {
     const response = await axios.post(
       'https://open-api.kakaopay.com/online/v1/payment/ready',
       {
-        cid: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID,
+        cid: process.env.NEXT_PUBLIC_KAKAOPAY_CLIENT_ID,
         partner_order_id: 'ORDER1234',
         partner_user_id: 'user123',
         item_name: itemName,
         quantity: 1,
         total_amount: totalPrice,
         tax_free_amount: 0,
-        approval_url: process.env.NEXT_PUBLIC_KAKAO_APPROVAL_URL,
-        cancel_url: process.env.NEXT_PUBLIC_KAKAO_CANCEL_URL,
-        fail_url: process.env.NEXT_PUBLIC_KAKAO_FAIL_URL,
+        approval_url: process.env.NEXT_PUBLIC_KAKAOPAY_APPROVAL_URL,
+        cancel_url: process.env.NEXT_PUBLIC_KAKAOPAY_CANCEL_URL,
+        fail_url: process.env.NEXT_PUBLIC_KAKAOPAY_FAIL_URL,
       },
       {
         headers: {
-          Authorization: `SECRET_KEY ${process.env.KAKAO_SECRET_KEY}`,
+          Authorization: `SECRET_KEY ${process.env.KAKAOPAY_SECRET_KEY}`,
           'Content-Type': 'application/json',
         },
       }

@@ -11,7 +11,7 @@ export default function SuccessPage() {
     if (typeof window === 'undefined' || !searchParams) return;
 
     const pg_token = searchParams.get('pg_token');
-    const tid = sessionStorage.getItem('kakao_tid');
+    const tid = sessionStorage.getItem('kakaopay_tid');
 
     if (pg_token && tid) {
       fetch(`/api/kakaopay/approve?pg_token=${pg_token}&tid=${tid}`)

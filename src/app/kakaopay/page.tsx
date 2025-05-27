@@ -15,7 +15,7 @@ export default function KakaoPayPage() {
       });
 
       if (res.data.tid) {
-        sessionStorage.setItem('kakao_tid', res.data.tid);
+        sessionStorage.setItem('kakaopay_tid', res.data.tid);
       }
 
       window.location.href = res.data.next_redirect_pc_url;

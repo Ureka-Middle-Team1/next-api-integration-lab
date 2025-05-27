@@ -11,10 +11,10 @@
   "dependencies": {
     "@prisma/client": "^6.8.2",
     "next": "15.3.2",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-react": "^5.22.0"
+    "swagger-jsdoc": "^6.2.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

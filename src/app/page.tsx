@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import TossPayment from "../components/TossPayment";
+import TossPayment from "./toss-test/page";
 
 export default function Home() {
   const [message, setMessage] = useState("");

@@ -1,4 +1,10 @@
+/* Tailwind 전역 스타일 */
 @import "tailwindcss";
+
+/**
+ * Tailwind CSS의 기본 스타일 구성 요소입니다.
+ */
+@tailwind utilities;
 
 :root {
   --background: #ffffff;

@@ -1,5 +1,9 @@
 "use client";
+
 import { useState } from "react";
+import { Button as TailwindButton } from "@/components/tailwind/Button";
+import { Button as StyledButton } from "@/components/styled/Button";
+import { Button as ShadcnButton } from "@/components/shadcnUi/button"; // shadcn 방식
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -28,6 +32,30 @@ export default function Home() {
       <div style={{ marginTop: 20 }}>
         <strong>GPT 응답:</strong>
         <p>{reply}</p>
+      </div>
+
+      {/* Tailwind를 활용한 테스트 */}
+      <h1 className="text-xl font-bold my-8">Tailwind 테스트</h1>
+      <div className="space-x-4">
+        <TailwindButton variant="default">Tailwind 기본</TailwindButton>
+        <TailwindButton variant="outline">Tailwind 테두리</TailwindButton>
+      </div>
+
+      {/* Styled-Components를 활용한 테스트 */}
+      <h1 className="text-xl font-bold my-8">Styled Components 테스트</h1>
+      <div className="space-x-4 mt-4">
+        <StyledButton variant="default">Styled 기본</StyledButton>
+        <StyledButton variant="outline">Styled 테두리</StyledButton>
+      </div>
+
+      {/* shadcn/ui를 활용한 테스트 */}
+      <h1 className="text-xl font-bold my-8">shadcn/ui 테스트</h1>
+      <div className="space-x-4 mt-4">
+        <ShadcnButton>Shadcn 기본</ShadcnButton>
+        <ShadcnButton variant="outline">Shadcn 테두리</ShadcnButton>
+        <ShadcnButton variant="ghost" size="sm">
+          Shadcn 고스트
+        </ShadcnButton>
       </div>
     </main>
   );

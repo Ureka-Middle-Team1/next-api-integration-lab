@@ -16,9 +16,9 @@ export async function POST(req: NextRequest) {
         quantity: 1,
         total_amount: totalPrice,
         tax_free_amount: 0,
-        approval_url: process.env.NEXT_PUBLIC_KAKAOPAY_APPROVAL_URL,
-        cancel_url: process.env.NEXT_PUBLIC_KAKAOPAY_CANCEL_URL,
-        fail_url: process.env.NEXT_PUBLIC_KAKAOPAY_FAIL_URL,
+        approval_url: process.env.NEXT_PUBLIC_KAKAOPAY_PAY_APPROVAL_URL,
+        cancel_url: process.env.NEXT_PUBLIC_KAKAOPAY_PAY_CANCEL_URL,
+        fail_url: process.env.NEXT_PUBLIC_KAKAOPAY_PAY_FAIL_URL,
       },
       {
         headers: {

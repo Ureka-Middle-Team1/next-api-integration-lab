@@ -8,8 +8,6 @@ export default function SuccessPage() {
   const [approved, setApproved] = useState(false);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !searchParams) return;
-
     const pg_token = searchParams.get('pg_token');
     const tid = sessionStorage.getItem('kakaopay_tid');
 
@@ -24,8 +22,10 @@ export default function SuccessPage() {
   }, [searchParams]);
 
   return (
-    <main style={{ padding: '40px', textAlign: 'center' }}>
-      <h1>✅ 결제가 {approved ? '성공적으로 완료' : '진행 중'}되었습니다!</h1>
+    <main className="p-10 text-center">
+      <h1 className="text-2xl">
+        ✅ 결제가 {approved ? '성공적으로 완료' : '진행 중'}되었습니다!
+      </h1>
     </main>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button as TailwindButton } from "@/components/tailwind/Button";
 import { Button as StyledButton } from "@/components/styled/Button";
 import { Button as ShadcnButton } from "@/components/shadcnUi/button"; // shadcn 방식
+import TossPayment from "./toss-test/page";
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -57,6 +58,8 @@ export default function Home() {
           Shadcn 고스트
         </ShadcnButton>
       </div>
+      <hr style={{ margin: "40px 0" }} />
+      <TossPayment />
     </main>
   );
 }

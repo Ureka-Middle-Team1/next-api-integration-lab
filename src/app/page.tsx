@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import TossPayment from "./toss-test/page";
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -32,8 +31,6 @@ export default function Home() {
       </div>
 
       <hr style={{ margin: "40px 0" }} />
-
-      <TossPayment />
     </main>
   );
 }

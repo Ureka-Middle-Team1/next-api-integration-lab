@@ -1,5 +1,9 @@
 "use client";
+
 import { useState } from "react";
+import { Button as TailwindButton } from "@/components/tailwind/Button";
+import { Button as StyledButton } from "@/components/styled/Button";
+import { Button as ShadcnButton } from "@/components/shadcnUi/button"; // shadcn 방식
 import TossPayment from "./toss-test/page";
 
 export default function Home() {
@@ -31,8 +35,30 @@ export default function Home() {
         <p>{reply}</p>
       </div>
 
-      <hr style={{ margin: "40px 0" }} />
+      {/* Tailwind를 활용한 테스트 */}
+      <h1 className="text-xl font-bold my-8">Tailwind 테스트</h1>
+      <div className="space-x-4">
+        <TailwindButton variant="default">Tailwind 기본</TailwindButton>
+        <TailwindButton variant="outline">Tailwind 테두리</TailwindButton>
+      </div>
 
+      {/* Styled-Components를 활용한 테스트 */}
+      <h1 className="text-xl font-bold my-8">Styled Components 테스트</h1>
+      <div className="space-x-4 mt-4">
+        <StyledButton variant="default">Styled 기본</StyledButton>
+        <StyledButton variant="outline">Styled 테두리</StyledButton>
+      </div>
+
+      {/* shadcn/ui를 활용한 테스트 */}
+      <h1 className="text-xl font-bold my-8">shadcn/ui 테스트</h1>
+      <div className="space-x-4 mt-4">
+        <ShadcnButton>Shadcn 기본</ShadcnButton>
+        <ShadcnButton variant="outline">Shadcn 테두리</ShadcnButton>
+        <ShadcnButton variant="ghost" size="sm">
+          Shadcn 고스트
+        </ShadcnButton>
+      </div>
+      <hr style={{ margin: "40px 0" }} />
       <TossPayment />
     </main>
   );

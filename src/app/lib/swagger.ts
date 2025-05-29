@@ -1,4 +1,5 @@
 import { createSwaggerSpec } from "next-swagger-doc";
+import "@/app/api/docs/swagger-docs";
 
 export async function getApiDocs(): Promise<Record<string, unknown>> {
   const spec = createSwaggerSpec({

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-// 타입 선언
+
 interface SpeechRecognition extends EventTarget {
   lang: string;
   interimResults: boolean;
@@ -9,7 +9,7 @@ interface SpeechRecognition extends EventTarget {
   start(): void;
   stop(): void;
   onresult: (event: SpeechRecognitionEvent) => void;
-  onerror: (event: any) => void;
+  onerror: (event: SpeechRecognitionErrorEvent) => void;
   onend: () => void;
 }
 
@@ -46,10 +46,27 @@ export default function SpeechTestPage() {
   const [listening, setListening] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
+  const speakText = () => {
+    if (!window.speechSynthesis) {
+      alert("이 브라우저는 TTS를 지원하지 않습니다.");
+      return;
+    }
+
+    if (!text.trim()) {
+      alert("읽을 텍스트가 없습니다.");
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ko-KR";
+    window.speechSynthesis.speak(utterance);
+  };
+
   useEffect(() => {
     const SpeechRecognition =
       typeof window !== "undefined" &&
       ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition);
+
     if (!SpeechRecognition) {
       alert("이 브라우저는 음성 인식을 지원하지 않습니다. Chrome을 사용해주세요.");
       return;
@@ -87,7 +104,7 @@ export default function SpeechTestPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded-2xl shadow-md text-center space-y-4">
+    <div className=" max-w-md mx-auto mt-10 p-6 border rounded-2xl shadow-md text-center space-y-4">
       <h1 className="text-2xl font-bold">🎤 음성 인식기</h1>
       <button
         onClick={startRecognition}
@@ -99,6 +116,14 @@ export default function SpeechTestPage() {
         {listening ? "듣는 중..." : "🎙 말하기 시작"}
       </button>
       <p className="min-h-[2rem] text-lg">{text || "여기에 인식된 텍스트가 표시됩니다."}</p>
+      {text && (
+        <button
+          onClick={speakText}
+          className="mt-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl font-semibold transition"
+        >
+          🔊AI로 듣기
+        </button>
+      )}
     </div>
   );
 }

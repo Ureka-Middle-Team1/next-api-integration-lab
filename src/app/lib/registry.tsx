@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useServerInsertedHTML } from "next/navigation";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
@@ -15,9 +15,15 @@ export default function StyledComponentsRegistry({ children }: { children: React
   // 서버에 HTML이 삽입되기 직전, 스타일을 수집하여 삽입
   useServerInsertedHTML(() => {
     const styles = styledComponentsStyleSheet.getStyleElement();
-    styledComponentsStyleSheet.instance.clearTag(); // 스타일을 삽입한 후 초기화
     return <>{styles}</>;
   });
+
+  useEffect(() => {
+    // clean-up(정리) 함수에서 sheet.seal() 호출을 통해, 스타일 시트를 안전하게 종료함
+    return () => {
+      styledComponentsStyleSheet.seal();
+    };
+  }, []);
 
   // 클라이언트에서는 스타일시트 없이 children만 렌더링
   if (typeof window !== "undefined") return <>{children}</>;

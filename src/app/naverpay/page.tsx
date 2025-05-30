@@ -1,5 +1,6 @@
 "use client";
 
+import Script from "next/script";
 import { useEffect, useRef } from "react";
 
 export default function NaverPayPage() {
@@ -11,19 +12,17 @@ export default function NaverPayPage() {
   const returnUrl = process.env.NEXT_PUBLIC_NAVER_RETURN_URL!;
 
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://nsp.pay.naver.com/sdk/js/naverpay.min.js";
-    script.async = true;
-    script.onload = () => {
-      if (!window.Naver?.Pay) return;
+    if (!window.Naver?.Pay) return;
 
-      const oPay = window.Naver.Pay.create({
-        mode: "development",
-        clientId,
-        chainId,
-      });
+    const oPay = window.Naver.Pay.create({
+      mode: "development",
+      clientId,
+      chainId,
+    });
 
-      buttonRef.current?.addEventListener("click", () => {
+    const button = buttonRef.current;
+    if (button) {
+      const handleClick = () => {
         oPay.open({
           merchantPayKey,
           productName: "상품명",
@@ -33,15 +32,21 @@ export default function NaverPayPage() {
           taxExScopeAmount: "0",
           returnUrl,
         });
-      });
-    };
-    document.body.appendChild(script);
+      };
+      button.addEventListener("click", handleClick);
+      return () => {
+        button.removeEventListener("click", handleClick);
+      };
+    }
   }, [clientId, chainId, merchantPayKey, returnUrl]);
 
   return (
-    <div>
-      <h1>네이버페이 테스트</h1>
-      <button ref={buttonRef}>네이버페이 결제 버튼</button>
-    </div>
+    <>
+      <Script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js" strategy="afterInteractive" />
+      <div>
+        <h1>네이버페이 테스트</h1>
+        <button ref={buttonRef}>네이버페이 결제 버튼</button>
+      </div>
+    </>
   );
 }

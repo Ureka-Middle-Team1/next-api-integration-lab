@@ -4,8 +4,8 @@ import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 
 export default function NaverPayPage() {
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const oPayRef = useRef<ReturnType<typeof window.Naver.Pay.create> | null>(null);
 
   const clientId = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
   const chainId = process.env.NEXT_PUBLIC_NAVER_CHAIN_ID;
@@ -24,26 +24,11 @@ export default function NaverPayPage() {
     const interval = setInterval(() => {
       if (window.Naver?.Pay) {
         clearInterval(interval);
-        const oPay = window.Naver.Pay.create({
+        oPayRef.current = window.Naver.Pay.create({
           mode: "development",
           clientId,
           chainId,
         });
-
-        if (buttonRef.current) {
-          buttonRef.current.addEventListener("click", () => {
-            oPay.open({
-              merchantPayKey,
-              productName: "상품명",
-              productCount: "1",
-              totalPayAmount: "1000",
-              taxScopeAmount: "1000",
-              taxExScopeAmount: "0",
-              returnUrl,
-            });
-          });
-        }
-
         setIsReady(true);
       }
     }, 200);
@@ -51,6 +36,19 @@ export default function NaverPayPage() {
     return () => clearInterval(interval);
   }, [clientId, chainId, merchantPayKey, returnUrl]);
 
+  const handleClick = () => {
+    if (!oPayRef.current || !isReady) return;
+
+    oPayRef.current.open({
+      merchantPayKey: merchantPayKey!,
+      productName: "테스트 상품",
+      productCount: "1",
+      totalPayAmount: "1000",
+      taxScopeAmount: "1000",
+      taxExScopeAmount: "0",
+      returnUrl: returnUrl!,
+    });
+  };
   return (
     <>
       <Script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js" strategy="afterInteractive" />
@@ -58,7 +56,7 @@ export default function NaverPayPage() {
         <h1 className="text-2xl font-bold">🟢 네이버페이 결제 테스트</h1>
         {!isReady && <p className="text-red-500 font-medium">환경변수 오류 또는 SDK 로딩 실패</p>}
         <button
-          ref={buttonRef}
+          onClick={handleClick}
           disabled={!isReady}
           className={`px-4 py-2 text-white rounded-xl font-semibold transition ${
             isReady ? "bg-green-600 hover:bg-green-700" : "bg-gray-400 cursor-not-allowed"

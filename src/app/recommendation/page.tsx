@@ -13,7 +13,30 @@ export default function PlanRecommendationPage() {
     dis: '',
   });
 
-  const [result, setResult] = useState<any[]>([]);
+  type ResultItem = {
+  telecom: string;
+  price: string;
+  discountPrice: string;
+  planName: string;
+  voice: string;
+  data: string;
+  sms: string;
+  rank: string;
+};
+
+type ApiItem = {
+  v_tel: { _text: string };
+  v_plan_price: { _text: string };
+  v_dis_price: { _text: string };
+  v_plan_name: { _text: string };
+  v_plan_display_voice: { _text: string };
+  v_plan_display_data: { _text: string };
+  v_plan_display_sms: { _text: string };
+  rn: { _text: string };
+};
+
+  const [result, setResult] = useState<ResultItem[]>([]);
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -25,30 +48,33 @@ export default function PlanRecommendationPage() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('/api/smartchoice/plan', form);
+      const response = await axios.post('/api/recommendation', form);
       const parsed = response.data;
-      const items = parsed?.root?.items?.item;
+const items: ApiItem[] = parsed.result ?? [];
 
-      if (items && Array.isArray(items)) {
-        const mapped = items.map((item: any) => ({
-          telecom: item.v_tel._text,
-          price: item.v_plan_price._text,
-          discountPrice: item.v_dis_price._text,
-          planName: item.v_plan_name._text,
-          voice: item.v_plan_display_voice._text,
-          data: item.v_plan_display_data._text,
-          sms: item.v_plan_display_sms._text,
-          rank: item.rn._text,
-        }));
-        setResult(mapped);
-      } else {
-        setError('❌ 요금제 결과가 없습니다.');
-        setResult([]);
-      }
+if (items.length > 0) {
+  const mapped = items.map((item: ApiItem) => ({
+    telecom: item.v_tel._text,
+    price: item.v_plan_price._text,
+    discountPrice: item.v_dis_price._text,
+    planName: item.v_plan_name._text,
+    voice: item.v_plan_display_voice._text,
+    data: item.v_plan_display_data._text,
+    sms: item.v_plan_display_sms._text,
+    rank: item.rn._text,
+  }));
+  setResult(mapped);
+} else {
+  setError('❌ 요금제 결과가 없습니다.');
+  setResult([]);
+}
+
     } catch (err) {
-      setError('오류 발생: ' + (err as any)?.message || '알 수 없는 오류');
-      setResult([]);
-    } finally {
+  setError(
+    "오류 발생: " + (err instanceof Error ? err.message : "알 수 없음")
+  );
+}
+ finally {
       setLoading(false);
     }
   };

@@ -11,8 +11,10 @@
   "dependencies": {
     "@prisma/client": "^6.8.2",
     "@radix-ui/react-slot": "^1.2.3",
-    "class-variance-authority": "^0.7.1",
+    "@react-three/drei": "^10.1.2",
+    "@react-three/fiber": "^9.1.2",
     "axios": "^1.9.0",
+    "class-variance-authority": "^0.7.1",
     "next": "15.3.2",
     "next-auth": "^4.24.11",
     "next-swagger-doc": "^0.4.1",
@@ -20,7 +22,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "styled-components": "^6.1.18",
-    "swagger-ui-dist": "^5.22.0"
+    "swagger-ui-dist": "^5.22.0",
+    "three": "^0.177.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

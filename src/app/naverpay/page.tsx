@@ -34,7 +34,7 @@ export default function NaverPayPage() {
     }, 200);
 
     return () => clearInterval(interval);
-  }, [clientId, chainId, merchantPayKey, returnUrl]);
+  }, []);
 
   const handleClick = () => {
     if (!oPayRef.current || !isReady) return;

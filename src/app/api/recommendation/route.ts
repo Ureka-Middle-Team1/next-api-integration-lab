@@ -42,13 +42,19 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         result: [],
+        count: 0,
       });
     }
 
-    return NextResponse.json({
-      success: true,
-      result: items,
-    });
+    const filteredItems = Array.isArray(items)
+  ? items.filter((item) => item.v_tel?._text === "LGU+")
+  : (items.v_tel?._text === "LGU+" ? [items] : []);
+
+return NextResponse.json({
+  success: true,
+  result: filteredItems,
+  count: filteredItems.length,
+});
 
   } catch (error: unknown) {
     if (error instanceof Error) {
